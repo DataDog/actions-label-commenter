@@ -175,7 +175,15 @@ class ContextLoader implements IContextLoader {
       return (this.payload as IssuePayload).label?.name;
     } else if (this.eventName === 'discussion') {
       return (this.payload as DiscussionPayload).label?.name;
-    }
+    } else if (this.eventName === 'synchronize') {
+      if (this.payload.labels == null) {
+        info(`uhoh null labels`);
+      }
+      for (var label of this.payload.labels?) {
+        info(`Label: ${label}`);
+      }
+      return undefined;
+    } 
 
     return (this.payload as PullRequestPayload).label?.name;
   }
